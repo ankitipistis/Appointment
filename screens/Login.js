@@ -19,7 +19,6 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 
 import WavyHeader from '../components/WavyHeader';
 
-
 const LogInScreen = ({ navigation }) => {
 
     const [errorspwd, setErrorsPwd] = React.useState([]);

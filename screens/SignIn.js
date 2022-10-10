@@ -23,7 +23,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import WavyHeader from '../components/WavyHeader';
 // import validator from 'validator';
 
-
 const SignInScreen = ({ navigation }) => {
     const [formData, setData] = React.useState([]);
     const [errors, setErrors] = React.useState([]);

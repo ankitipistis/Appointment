@@ -21,6 +21,9 @@ import WavyHeader from '../components/WavyHeader';
 
 const LogInScreen = ({ navigation }) => {
 
+    const [mail, setMail] = useState("");
+    const [errorsmail, setErrorsMail] = React.useState([]);
+
     const [errorspwd, setErrorsPwd] = React.useState([]);
     const [pwd, setPwd] = useState("");
 
@@ -44,8 +47,35 @@ const LogInScreen = ({ navigation }) => {
         return true;
     };
 
+    // Email Validation Section 
+
+    function isValidEmail(email) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(email);
+    }
+
+    const validateMail = () => {
+        setErrorsMail([])
+        if (!mail) {
+            setErrorsMail({
+                ...errorsmail,
+                mail: 'Mail is required'
+            });
+            return false;
+        }
+        else if (!isValidEmail(mail)) {
+            setErrorsMail({
+                ...errorsmail,
+                mail: 'Invalid Email'
+            });
+            return false;
+        }
+        return true;
+
+    };
+
     const onSubmit = () => {
         validatePwd() ? console.log('Submitted') : console.log('Validation Failed');
+        validateMail() ? console.log('Submitted') : console.log('Validation Failed');
     };
 
     return (
@@ -67,7 +97,11 @@ const LogInScreen = ({ navigation }) => {
                     <VStack space={3} mt="5">
                         <FormControl>
                             <FormControl.Label>Email ID</FormControl.Label>
-                            <Input />
+                            <Input placeholder="Enter Email" onChangeText={(value) => setMail(value)} />
+                            {'mail' in errorsmail ? <Text>
+                                {errorsmail.mail}
+                            </Text> : ""}
+
                         </FormControl>
                         <FormControl>
                             <FormControl.Label>Password</FormControl.Label>
@@ -79,9 +113,7 @@ const LogInScreen = ({ navigation }) => {
                                 navigation.navigate('PasswordScreen', { title: 'ForgotPassword' })
                             }}>  Forgot Password?</Text>
                         </FormControl>
-                        <Button mt="2" colorScheme="indigo" onPress={() => {
-                            navigation.navigate('Business', { title: 'Business' })
-                        }}  >
+                        <Button mt="2" colorScheme="indigo" onPress={onSubmit}   >
                             Sign in
                         </Button>
                         <HStack mt="6" justifyContent="center">

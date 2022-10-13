@@ -25,12 +25,16 @@ import WavyHeader from '../components/WavyHeader';
 
 const SignInScreen = ({ navigation }) => {
     const [formData, setData] = React.useState([]);
-    const [errors, setErrors] = React.useState([]);
-    const [errorspwd, setErrorsPwd] = React.useState([]);
 
     const [name, setName] = useState("");
+    const [errors, setErrors] = React.useState([]);
+
     const [mail, setMail] = useState("");
+    const [errorsmail, setErrorsMail] = React.useState([]);
+
     const [pwd, setPwd] = useState("");
+    const [errorspwd, setErrorsPwd] = React.useState([]);
+
 
     // const [emailError, setEmailError] = useState('');
 
@@ -54,6 +58,44 @@ const SignInScreen = ({ navigation }) => {
 
         return true;
     };
+    // Email validation section 
+
+    function isValidEmail(email) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(email);
+    }
+
+    const validateMail = () => {
+        setErrorsMail([])
+        if (!mail) {
+            setErrorsMail({
+                ...errorsmail,
+                mail: 'Mail is required'
+            });
+            return false;
+        }
+        else if (!isValidEmail(mail)) {
+            setErrorsMail({
+                ...errorsmail,
+                mail: 'Invalid Email'
+            });
+            return false;
+        }
+        return true;
+
+    };
+
+
+    // var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    // const handleChange = (event) => {
+    //     if (!isValidEmail(event.target.value)) {
+    //         setErrorsMail('Email is invalid');
+    //     } else {
+    //         setErrorsMail(null);
+    //     }
+
+    //     setMail(event.target.value);
+    // };
 
     const validatePwd = () => {    // Password validation
         setErrorsPwd([])
@@ -85,30 +127,13 @@ const SignInScreen = ({ navigation }) => {
     //     }
     // }
 
-    // const validateMail = () => {
-    //     setErrors([])
-    //     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //     if (!mail) {
-    //         setErrors({
-    //             ...errors,
-    //             mail: 'Mail is required'
-    //         });
-    //         return false;
-    //     }
-    //     else if (mail.match(mailformat)) {
-    //         setErrors({
-    //             ...errors,
-    //             mail: 'Invalid Email'
-    //         });
-    //         return false;
-    //     }
-    //     return true;
-
-    // };
+  
 
     const onSubmit = () => {
         validate() ? console.log('Submitted') : console.log('Validation Failed');
         validatePwd() ? console.log('Submitted') : console.log('Validation Failed');
+        validateMail() ? console.log('Submitted') : console.log('Validation Failed');
+
 
         // validateMail() ? console.log('Submitted') : console.log('Validation Failed');
     };
@@ -149,8 +174,11 @@ const SignInScreen = ({ navigation }) => {
 
                         <FormControl isRequired>
                             <FormControl.Label>Email</FormControl.Label>
-                            <Input placeholder="Enter Email" onChange={(e) => validateEmail(e)} />
-                            {/* <Text>{emailError}</Text> */}
+                            <Input placeholder="Enter Email"  onChangeText={(value) => setMail(value)} />
+                            {'mail' in errorsmail ? <Text>
+                                {errorsmail.mail}
+                            </Text> : ""} 
+
                         </FormControl>
 
                         {/* Password Input Field  */}

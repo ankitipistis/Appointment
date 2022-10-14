@@ -2,26 +2,17 @@ import React, { useState } from 'react';
 import {
     Heading,
     NativeBaseProvider,
-    Pressable,
     VStack,
     Button,
-    Image,
     FormControl,
     Input,
     Text,
     Center,
     Box,
-    Link,
-    HStack,
     Checkbox,
-    WarningOutlineIcon,
-    isEmptyObj
 } from "native-base";
 import { StyleSheet, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 import WavyHeader from '../components/WavyHeader';
-// import validator from 'validator';
 
 const HideKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -40,9 +31,6 @@ const SignInScreen = ({ navigation }) => {
 
     const [pwd, setPwd] = useState("");
     const [errorspwd, setErrorsPwd] = React.useState([]);
-
-
-    // const [emailError, setEmailError] = useState('');
 
 
     const validate = () => {
@@ -64,6 +52,7 @@ const SignInScreen = ({ navigation }) => {
 
         return true;
     };
+
     // Email validation section 
 
     function isValidEmail(email) {
@@ -91,20 +80,9 @@ const SignInScreen = ({ navigation }) => {
 
     };
 
+    // Password validation Section
 
-    // var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    // const handleChange = (event) => {
-    //     if (!isValidEmail(event.target.value)) {
-    //         setErrorsMail('Email is invalid');
-    //     } else {
-    //         setErrorsMail(null);
-    //     }
-
-    //     setMail(event.target.value);
-    // };
-
-    const validatePwd = () => {    // Password validation
+    const validatePwd = () => {     
         setErrorsPwd([])
         if (!pwd) {
             setErrorsPwd({
@@ -124,25 +102,13 @@ const SignInScreen = ({ navigation }) => {
         return true;
     };
 
-    // const validateEmail = (e) => {
-    //     var email = e.target.value
-
-    //     if (validator.isEmail(email)) {
-    //         setEmailError('Valid Email :)')
-    //     } else {
-    //         setEmailError('Enter valid Email!')
-    //     }
-    // }
-
-
 
     const onSubmit = () => {
+
         validate() ? console.log('Submitted') : console.log('Validation Failed');
         validatePwd() ? console.log('Submitted') : console.log('Validation Failed');
         validateMail() ? console.log('Submitted') : console.log('Validation Failed');
 
-
-        // validateMail() ? console.log('Submitted') : console.log('Validation Failed');
     };
 
     return (
@@ -170,7 +136,9 @@ const SignInScreen = ({ navigation }) => {
                                 Sign up to continue!
                             </Heading>
                             <VStack space={3} mt="5">
+
                                 {/* Name Input Field  */}
+
                                 <FormControl isRequired>
                                     <FormControl.Label>Name</FormControl.Label>
                                     <Input placeholder="Enter Name" onChangeText={(value) => setName(value)} />
@@ -187,7 +155,6 @@ const SignInScreen = ({ navigation }) => {
                                     {'mail' in errorsmail ? <Text>
                                         {errorsmail.mail}
                                     </Text> : ""}
-
                                 </FormControl>
 
                                 {/* Password Input Field  */}
@@ -204,12 +171,15 @@ const SignInScreen = ({ navigation }) => {
                                     <FormControl.Label>Confirm Password</FormControl.Label>
                                     <Input type="password" placeholder="password" />
                                 </FormControl>
+
                                 <Checkbox size="sm" value="tnc" justifyContent="center" mb="4">
                                     I agree to Terms and conditions
                                 </Checkbox>
+
                                 <Button mt="2" colorScheme="indigo" onPress={onSubmit}>
                                     Sign up
                                 </Button>
+
                             </VStack>
                         </Box>
                     </Center>

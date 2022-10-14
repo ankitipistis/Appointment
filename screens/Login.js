@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
-
 import {
     Heading,
     NativeBaseProvider,
-    Pressable,
     VStack,
     Button,
-    Image,
     FormControl,
     Input,
     Text,
     Center,
     Box,
-    Link,
     HStack
 } from "native-base";
 import { StyleSheet, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-
 import WavyHeader from '../components/WavyHeader';
+
+// Hide Keyboard on press
 
 const HideKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -32,26 +29,6 @@ const LogInScreen = ({ navigation }) => {
 
     const [errorspwd, setErrorsPwd] = React.useState([]);
     const [pwd, setPwd] = useState("");
-
-    const validatePwd = () => {    // Password validation
-        setErrorsPwd([])
-        if (!pwd) {
-            setErrorsPwd({
-                ...errorspwd,
-                pwd: 'Password is required'
-            });
-            return false;
-        }
-        else if (pwd.length < 6) {
-            setErrorsPwd({
-                ...errorspwd,
-                pwd: 'Password is too short'
-            });
-            return false;
-        }
-
-        return true;
-    };
 
     // Email Validation Section 
 
@@ -76,6 +53,28 @@ const LogInScreen = ({ navigation }) => {
             return false;
         }
         navigation.navigate('Business', { title: 'Business' })
+        return true;
+    };
+
+    // Password validation Section
+
+    const validatePwd = () => {
+        setErrorsPwd([])
+        if (!pwd) {
+            setErrorsPwd({
+                ...errorspwd,
+                pwd: 'Password is required'
+            });
+            return false;
+        }
+        else if (pwd.length < 6) {
+            setErrorsPwd({
+                ...errorspwd,
+                pwd: 'Password is too short'
+            });
+            return false;
+        }
+
         return true;
     };
 

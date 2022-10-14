@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { Ionicons, MaterialIcons, AntDesign, FontAwesome } from '@expo/vector-icons';
 
-// import WavyHeader from '../components/WavyHeader';
 import { Flex, Spacer, VStack, Box, ScrollView, Heading, Center, Divider, Button, NativeBaseProvider, Menu, Pressable, HamburgerIcon } from "native-base";
 const Business = ({ navigation }) => {
     return (
@@ -10,10 +9,10 @@ const Business = ({ navigation }) => {
             <Box flex="1" safeAreaTop>
                 <ScrollView>
                     <VStack space={2.5} w="100%" px="1">
-                        {/* <Heading size="md" marginTop="10" textAlign="center">Set up your Account</Heading> */}
                         <Flex direction="row" mb="2.5" mt="10" justifyContent="space-between" width="90%" margin="auto"  >
 
                             <Heading fontSize='3xl' bottom="2" color="coolGray.600">Dashboard</Heading>
+
                             <Menu w="190" trigger={triggerProps => {
                                 return <Pressable {...triggerProps}>
                                     <HamburgerIcon bottom="1" size="7" />
@@ -31,17 +30,17 @@ const Business = ({ navigation }) => {
                                     <Menu.Item  onPress={() => {
                                         navigation.navigate('LogInScreen', { title: 'LogInScreen' })
                                     }}>Log Out</Menu.Item>
-
                                 </Menu.Group>
                             </Menu>
-                            {/* <Ionicons name="notifications" size={24} color="blue" /> */}
-
                         </Flex>
+
                         <Divider />
+
                         <Flex direction="column" mt="5" width="90%" margin="auto">
                             <Heading fontSize='2xl' fontWeight="normal">Hello, <Heading>Ankit Raj</Heading></Heading>
                             <Text>Check Your activities in this Dashboard.</Text>
                         </Flex>
+
                         <Flex direction="row" width="90%" margin="auto" mt="10" justifyContent="space-between">
 
                             <Box >
@@ -74,6 +73,7 @@ const Business = ({ navigation }) => {
                                 </Flex>
                             </Box>
                         </Flex>
+
                         <Divider mt="2" />
 
                         <Box backgroundColor="blue.700" borderRadius="15" width="95%" margin="auto" >
@@ -94,7 +94,9 @@ const Business = ({ navigation }) => {
                             <Heading>Recent Activity</Heading>
                             <Text style={{ top: 3, color: "blue" }} >View All</Text>
                         </Flex>
+
                     </VStack>
+
                     <Divider mt="2" />
 
                     <VStack space={2.5} w="100%" px="1">
@@ -139,8 +141,6 @@ const Business = ({ navigation }) => {
                                     <Box style={styles.boxOnSuccess}><Text style={styles.TextOnSuccess}> Success </Text></Box>
                                 </Flex>
                             </Box>
-
-
                         </Flex>
                     </VStack>
                 </ScrollView>
@@ -193,15 +193,12 @@ const styles = StyleSheet.create({
         alignSelf: "flex-end"
 
     },
-
     Text1: {            // Text under Recent Activity Section
         fontSize: 13,
-        // fontWeight: "bold",
     },
     Text2: {
         fontSize: 15,
         marginTop: 3
-        // fontWeight: "bold",
     },
     TextOnSuccess: {
         color: "#10b981",

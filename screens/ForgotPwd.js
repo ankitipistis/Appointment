@@ -2,22 +2,18 @@ import React, { useState } from 'react';
 import {
     Heading,
     NativeBaseProvider,
-    Pressable,
-    VStack,
     Button,
-    Image,
     FormControl,
     Input,
     Text,
     Center,
     Box,
-    Link,
-    HStack
 } from "native-base";
 import { StyleSheet, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-
 import WavyHeader from '../components/WavyHeader';
 import { MaterialIcons } from '@expo/vector-icons';
+
+    // Hide Keyboard on press
 
 const HideKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -65,15 +61,15 @@ const PasswordScreen = ({ navigation }) => {
         <NativeBaseProvider>
             <HideKeyboard>
                 <View>
+
                     <WavyHeader customStyles={styles.svgCurve} />
+
                     <Center w="100%">
                         <Box style={styles.Box1}>
                             <MaterialIcons name="lock" size={150} color="white" />
                         </Box>
                         <Heading mt="2">Forgot Password?</Heading>
                         <Text textAlign="center" mt="1" >Please enter your Email address to{'\n'}recieve a verification code. </Text>
-
-
                     </Center>
 
                     <Box w="80%" margin="auto" marginTop={6}>
@@ -90,7 +86,6 @@ const PasswordScreen = ({ navigation }) => {
                     </Box>
                 </View>
             </HideKeyboard>
-
         </NativeBaseProvider>
     );
 };
@@ -100,7 +95,6 @@ const styles = StyleSheet.create({
     svgCurve: {
         position: 'absolute',
         width: Dimensions.get('window').width
-
     },
     Box1: {
         marginTop: 200,

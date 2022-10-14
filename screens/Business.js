@@ -28,6 +28,10 @@ const Business = ({ navigation }) => {
                                 <Menu.Group title="About">
                                     <Menu.Item>About Us</Menu.Item>
                                     <Menu.Item>Contact Us</Menu.Item>
+                                    <Menu.Item  onPress={() => {
+                                        navigation.navigate('LogInScreen', { title: 'LogInScreen' })
+                                    }}>Log Out</Menu.Item>
+
                                 </Menu.Group>
                             </Menu>
                             {/* <Ionicons name="notifications" size={24} color="blue" /> */}

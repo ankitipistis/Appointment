@@ -17,11 +17,17 @@ import {
     WarningOutlineIcon,
     isEmptyObj
 } from "native-base";
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import WavyHeader from '../components/WavyHeader';
 // import validator from 'validator';
+
+const HideKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+);
 
 const SignInScreen = ({ navigation }) => {
     const [formData, setData] = React.useState([]);
@@ -80,6 +86,7 @@ const SignInScreen = ({ navigation }) => {
             });
             return false;
         }
+        navigation.navigate('LogInScreen', { title: 'LogInScreen' })
         return true;
 
     };
@@ -127,7 +134,7 @@ const SignInScreen = ({ navigation }) => {
     //     }
     // }
 
-  
+
 
     const onSubmit = () => {
         validate() ? console.log('Submitted') : console.log('Validation Failed');
@@ -140,70 +147,74 @@ const SignInScreen = ({ navigation }) => {
 
     return (
         <NativeBaseProvider>
-            <WavyHeader customStyles={styles.svgCurve} />
-            <Center w="100%">
-                <Box safeArea p="2" w="90%" maxW="290" py="8" top="40" >
-                    <Heading size="lg" color="coolGray.800" _dark={{
-                        color: "warmGray.50"
-                    }} fontWeight="semibold">
-                        Welcome {name}
-                        {formData.map((result) => {
-                            return (
-                                <b>{result}</b>
-                            )
-                        }
-                        )}
-                        {formData}
-                    </Heading>
-                    <Heading mt="1" color="coolGray.600" _dark={{
-                        color: "warmGray.200"
-                    }} fontWeight="medium" size="xs">
-                        Sign up to continue!
-                    </Heading>
-                    <VStack space={3} mt="5">
-                        {/* Name Input Field  */}
-                        <FormControl isRequired>
-                            <FormControl.Label>Name</FormControl.Label>
-                            <Input placeholder="Enter Name" onChangeText={(value) => setName(value)} />
-                            {'name' in errors ? <Text>
-                                {errors.name}
-                            </Text> : ""}
-                        </FormControl>
+            <HideKeyboard>
+                <View>
+                    <WavyHeader customStyles={styles.svgCurve} />
+                    <Center w="100%">
+                        <Box safeArea p="2" w="90%" maxW="290" py="8" top="40" >
+                            <Heading size="lg" color="coolGray.800" _dark={{
+                                color: "warmGray.50"
+                            }} fontWeight="semibold">
+                                Welcome {name}
+                                {formData.map((result) => {
+                                    return (
+                                        <b>{result}</b>
+                                    )
+                                }
+                                )}
+                                {formData}
+                            </Heading>
+                            <Heading mt="1" color="coolGray.600" _dark={{
+                                color: "warmGray.200"
+                            }} fontWeight="medium" size="xs">
+                                Sign up to continue!
+                            </Heading>
+                            <VStack space={3} mt="5">
+                                {/* Name Input Field  */}
+                                <FormControl isRequired>
+                                    <FormControl.Label>Name</FormControl.Label>
+                                    <Input placeholder="Enter Name" onChangeText={(value) => setName(value)} />
+                                    {'name' in errors ? <Text>
+                                        {errors.name}
+                                    </Text> : ""}
+                                </FormControl>
 
-                        {/* Email Input Field  */}
+                                {/* Email Input Field  */}
 
-                        <FormControl isRequired>
-                            <FormControl.Label>Email</FormControl.Label>
-                            <Input placeholder="Enter Email"  onChangeText={(value) => setMail(value)} />
-                            {'mail' in errorsmail ? <Text>
-                                {errorsmail.mail}
-                            </Text> : ""} 
+                                <FormControl isRequired>
+                                    <FormControl.Label>Email</FormControl.Label>
+                                    <Input placeholder="Enter Email" onChangeText={(value) => setMail(value)} />
+                                    {'mail' in errorsmail ? <Text>
+                                        {errorsmail.mail}
+                                    </Text> : ""}
 
-                        </FormControl>
+                                </FormControl>
 
-                        {/* Password Input Field  */}
+                                {/* Password Input Field  */}
 
-                        <FormControl isRequired>
-                            <FormControl.Label>Password</FormControl.Label>
-                            <Input type="password" placeholder="Enter Password" onChangeText={(value) => setPwd(value)} />
-                            {'pwd' in errorspwd ? <Text>
-                                {errorspwd.pwd}
-                            </Text> : ""}
-                        </FormControl>
+                                <FormControl isRequired>
+                                    <FormControl.Label>Password</FormControl.Label>
+                                    <Input type="password" placeholder="Enter Password" onChangeText={(value) => setPwd(value)} />
+                                    {'pwd' in errorspwd ? <Text>
+                                        {errorspwd.pwd}
+                                    </Text> : ""}
+                                </FormControl>
 
-                        <FormControl isRequired >
-                            <FormControl.Label>Confirm Password</FormControl.Label>
-                            <Input type="password" placeholder="password" />
-                        </FormControl>
-                        <Checkbox size="sm" value="tnc" justifyContent="center" mb="4">
-                            I agree to Terms and conditions
-                        </Checkbox>
-                        <Button mt="2" colorScheme="indigo" onPress={onSubmit}>
-                            Sign up
-                        </Button>
-                    </VStack>
-                </Box>
-            </Center>
+                                <FormControl isRequired >
+                                    <FormControl.Label>Confirm Password</FormControl.Label>
+                                    <Input type="password" placeholder="password" />
+                                </FormControl>
+                                <Checkbox size="sm" value="tnc" justifyContent="center" mb="4">
+                                    I agree to Terms and conditions
+                                </Checkbox>
+                                <Button mt="2" colorScheme="indigo" onPress={onSubmit}>
+                                    Sign up
+                                </Button>
+                            </VStack>
+                        </Box>
+                    </Center>
+                </View>
+            </HideKeyboard>
         </NativeBaseProvider>
     );
 };

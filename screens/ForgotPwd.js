@@ -14,10 +14,16 @@ import {
     Link,
     HStack
 } from "native-base";
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import WavyHeader from '../components/WavyHeader';
 import { MaterialIcons } from '@expo/vector-icons';
+
+const HideKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+);
 
 
 const PasswordScreen = ({ navigation }) => {
@@ -57,29 +63,34 @@ const PasswordScreen = ({ navigation }) => {
 
     return (
         <NativeBaseProvider>
-            <WavyHeader customStyles={styles.svgCurve} />
-            <Center w="100%">
-                <Box style={styles.Box1}>
-                    <MaterialIcons name="lock" size={150} color="white" />
-                </Box>
-                <Heading mt="2">Forgot Password?</Heading>
-                <Text textAlign="center" mt="1" >Please enter your Email address to{'\n'}recieve a verification code. </Text>
+            <HideKeyboard>
+                <View>
+                    <WavyHeader customStyles={styles.svgCurve} />
+                    <Center w="100%">
+                        <Box style={styles.Box1}>
+                            <MaterialIcons name="lock" size={150} color="white" />
+                        </Box>
+                        <Heading mt="2">Forgot Password?</Heading>
+                        <Text textAlign="center" mt="1" >Please enter your Email address to{'\n'}recieve a verification code. </Text>
 
 
-            </Center>
+                    </Center>
 
-            <Box w="80%" margin="auto" marginTop={6}>
-                <FormControl>
-                    <FormControl.Label>Email Address</FormControl.Label>
-                    <Input placeholder="Enter Email" onChangeText={(value) => setMail(value)} />
-                    {'mail' in errorsmail ? <Text>
-                        {errorsmail.mail}
-                    </Text> : ""}
-                </FormControl>
-                <Button mt="35%" colorScheme="indigo" onPress={onSubmit}>
-                    Send Email
-                </Button>
-            </Box>
+                    <Box w="80%" margin="auto" marginTop={6}>
+                        <FormControl>
+                            <FormControl.Label>Email Address</FormControl.Label>
+                            <Input placeholder="Enter Email" onChangeText={(value) => setMail(value)} />
+                            {'mail' in errorsmail ? <Text>
+                                {errorsmail.mail}
+                            </Text> : ""}
+                        </FormControl>
+                        <Button mt="35%" colorScheme="indigo" onPress={onSubmit}>
+                            Send Email
+                        </Button>
+                    </Box>
+                </View>
+            </HideKeyboard>
+
         </NativeBaseProvider>
     );
 };
